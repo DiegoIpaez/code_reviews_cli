@@ -16,7 +16,7 @@ Este proyecto es una herramienta de línea de comandos (CLI) para registrar revi
 ## Instalación
 1. Clona este repositorio:
    ```bash
-   git clone <url-del-repo>
+   git clone https://github.com/DiegoIpaez/code_reviews_cli
    cd code_reviews_cli
    ```
 2. Instala las dependencias:
