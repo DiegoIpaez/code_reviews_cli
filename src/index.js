@@ -1,13 +1,14 @@
-import readline from "readline";
-import { CONFIG } from "./constants/index.js";
-import { appendSpreadsheet } from "./lib/googleSheetsClient.lib.js";
-import { getPullRequestInfo } from "./services/pullRequest.service.js";
+#!/usr/bin/env node
+import readline from 'readline';
+import { CONFIG } from './constants/index.js';
+import { appendSpreadsheet } from './lib/googleSheetsClient.lib.js';
+import { getPullRequestInfo } from './services/pullRequest.service.js';
 import {
   parsePrUrl,
   inferTaskType,
   formatDate,
   prompt,
-} from "./utils/index.js";
+} from './utils/index.js';
 
 const apendToGoogleSheet = async (data) => {
   const row = [
@@ -24,8 +25,8 @@ const apendToGoogleSheet = async (data) => {
     data.createdAt,
   ];
 
-  await appendSpreadsheet(CONFIG.GOOGLE_SHEETS.SPREADSHEET_ID, "A:K", [row]);
-  console.log("\n✅ Registro agregado al Excel correctamente.\n");
+  await appendSpreadsheet(CONFIG.GOOGLE_SHEETS.SPREADSHEET_ID, 'A:K', [row]);
+  console.log('\n✅ Registro agregado al Excel correctamente.\n');
 };
 
 async function main() {
@@ -34,9 +35,9 @@ async function main() {
     output: process.stdout,
   });
 
-  let prUrl = await prompt(rl, "🔗  URL del PR: ");
+  let prUrl = await prompt(rl, '🔗  URL del PR: ');
   while (!prUrl.trim()) {
-    prUrl = await prompt(rl, "⚠️  La URL es requerida. Ingresa la URL del PR: ");
+    prUrl = await prompt(rl, '⚠️  La URL es requerida. Ingresa la URL del PR: ');
   }
   prUrl = prUrl.trim();
 
@@ -47,11 +48,11 @@ async function main() {
   const branch = pr?.head?.ref;
   const taskType = inferTaskType(branch);
 
-  let fechaAprobado = "—";
+  let fechaAprobado = '—';
   if (pr?.merged_at) fechaAprobado = formatDate(pr?.merged_at);
   else if (pr?.closed_at) fechaAprobado = formatDate(pr?.closed_at);
 
-  console.log("📝  Ingresa los datos manuales:\n");
+  console.log('📝  Ingresa los datos manuales:\n');
 
   let fechaRevision = await prompt(
     rl,
@@ -59,8 +60,8 @@ async function main() {
   );
   if (!fechaRevision.trim()) fechaRevision = formatDate(new Date());
 
-  let nota = await prompt(rl, "  Nota (observaciones post-review): ");
-  if (!nota.trim()) nota = "—";
+  let nota = await prompt(rl, '  Nota (observaciones post-review): ');
+  if (!nota.trim()) nota = '—';
   rl.close();
 
   const data = {
@@ -77,8 +78,8 @@ async function main() {
     createdAt: formatDate(pr.created_at),
   };
 
-  console.log("─".repeat(60) + "\n");
-  console.log("📝 Review Summary:");
+  console.log('─'.repeat(60) + '\n');
+  console.log('📝 Review Summary:');
   console.log(JSON.stringify(data, null, 2));
   await apendToGoogleSheet(data);
 }

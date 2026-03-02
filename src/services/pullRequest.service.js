@@ -1,4 +1,4 @@
-import { ghClient } from "../lib/axiosClient.lib.js";
+import { ghClient } from '../lib/axiosClient.lib.js';
 
 export const getPullRequestInfo = async ({ owner, repo, number }) => {
   const { data } = await ghClient.get(
