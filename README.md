@@ -14,6 +14,7 @@ Este proyecto es una herramienta de línea de comandos (CLI) para registrar revi
 - Archivo de credenciales de Google Sheets (`google-sheet-credential.json`).
 
 ## Instalación
+
 1. Clona este repositorio:
    ```bash
    git clone https://github.com/DiegoIpaez/code_reviews_cli
@@ -25,13 +26,36 @@ Este proyecto es una herramienta de línea de comandos (CLI) para registrar revi
    ```
 3. Configura las credenciales de Google Sheets:
    - Descarga el archivo `google-sheet-credential.json` y colócalo en la raíz del proyecto.
-   - Configura el ID de la hoja de cálculo y el nombre del revisor en `src/constants/index.js`.
+   - Configura el ID de la hoja de cálculo y el nombre del revisor en el archivo `.env`.
+
+## Instalación y uso global
+
+Puedes instalar el CLI de forma global para ejecutarlo desde cualquier ubicación:
+
+1. Desde la raíz del proyecto, ejecuta:
+   ```bash
+   npm install -g .
+   ```
+2. Ahora puedes usar el comando globalmente:
+   ```bash
+   code-reviews
+   ```
+3. El CLI buscará automáticamente el archivo `.env` y las credenciales en la raíz del proyecto donde fue instalado globalmente.
 
 ## Uso
+
+### Uso local
 Ejecuta el CLI con:
 ```bash
 node src/index.js
 ```
+
+### Uso global
+Ejecuta el CLI con:
+```bash
+code-reviews
+```
+
 Sigue las instrucciones en pantalla:
 1. Ingresa la URL del Pull Request.
 2. Completa los datos manuales solicitados (fecha de revisión, nota).

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import readline from 'readline';
 import { CONFIG } from './constants/index.js';
 import { appendSpreadsheet } from './lib/googleSheetsClient.lib.js';
